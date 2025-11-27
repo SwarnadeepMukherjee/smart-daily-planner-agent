@@ -2,13 +2,10 @@ from google.genai import types
 from google.genai.agents import Agent, SequentialAgent, InMemorySessionService
 from google.genai.tools import CodeExecutionTool
 
-# Session memory
 session = InMemorySessionService()
 
-# Tool example
 code_tool = CodeExecutionTool()
 
-# Sub-agents
 task_cleaner = Agent(
     model="gemini-2.0-flash",
     instructions="Clean and normalize the list of tasks.",
@@ -27,13 +24,11 @@ summarizer = Agent(
     session=session
 )
 
-# Sequential multi-agent system
 daily_planner = SequentialAgent(
     agents=[task_cleaner, scheduler, summarizer],
     session=session
 )
 
-# Example run
 tasks = """
 - finish homework
 - study for math exam
